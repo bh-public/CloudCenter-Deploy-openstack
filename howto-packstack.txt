@@ -1,0 +1,44 @@
+Installation Summary
+
+You can install OpenStack with a few simple commands:
+
+yum install centos-release-openstack-ocata
+
+yum install openstack-packstack
+
+packstack --gen-answer-file=/root/answers.txt
+
+packstack --answer-file=/root/answers.txt (takes 10-15 minutes, depending on Internet speed)
+
+An important part of the installation is the answer file. This long file contains a long list of parameters that need to be configured to determine what is going to be installed and how it will be installed. Below is a list of some of the parameters I'd recommend that you change to get to a simple POC setup.
+
+CONFIG_DEFAULT_PASSWORD=password
+
+CONFIG_SWIFT_INSTALL=n
+
+CONFIG_HEAT_INSTALL=y
+
+CONFIG_NTP_SERVERS=pool.ntp.org
+
+CONFIG_KEYSTONE_ADMIN_PW=password
+
+CONFIG_CINDER_VOLUMES_CREATE=y
+
+CONFIG_HORIZON_SSL=y
+
+CONFIG_HEAT_CFN_INSTALL=y
+
+CONFIG_PROVISION_DEMO=n
+
+CONFIG_NEUTRON_OVS_TUNNEL_IF=eth1
+
+Verifying the Installation
+
+Once the Packstack based installation has finished, you'll want to figure out if it was successful. A few simple commands can help you verify your installation. To start with, use source ˜/keystonerc_admin. This command sources the OpenStack credentials file that has automatically been created. This file authenticates you with Keystone, the OpenStack authentication service, after which you'll have full access to all of the OpenStack components and you'll be able to run the different OpenStack commands.
+
+Another useful command is openstack-status (you'll need to install the openstack-utils RPM). After sourcing the credentials file, it gives an overview of the complete configuration that's currently operational. You can also use the OpenStack command-line interface. The openstack command from the CLI has hundreds of options to allow you to manipulate all parts of OpenStack. Type, for example:
+
+openstack user list 
+which will show a list of users currently configured in your OpenStack cloud.
+
+After verifying that OpenStack has been configured successfully, you can also start a browser and connect to the Horizon configuration interface. This is a nice graphical interface that gives easy access to most of the tasks that OpenStack admins need to do on a frequent basis.

@@ -18,20 +18,20 @@ USER_ENV="/usr/local/osmosix/etc/userenv"
 case $cmd in
 	install)
 		log "[INSTALL] Installing $SVCNAME"
-		yum install centos-release-openstack-ocata -y
+		sudo yum install centos-release-openstack-ocata -y
 		;;
 	deploy)
 		log "[DEPLOY] Deploying $SVCNAME"
 		;;
 	configure)
 		log "[CONFIGURE] Configuring $SVCNAME"
-		yum install openstack-packstack -y
-		packstack --gen-answer-file=/root/answers.txt
+		sudo yum install openstack-packstack -y
 		;;
 	start)
 		
 		log "[START] Invoking pre-start user packstack script wait 15 minutes"
-		packstack --answer-file=/root/answers.txt
+		sudo packstack --gen-answer-file=answers.txt
+		sudo packstack --answer-file=answers.txt
 		log "[START] Starting $SVCNAME"
 		log "[START] $SVCNAME successfully started."
 		;;
