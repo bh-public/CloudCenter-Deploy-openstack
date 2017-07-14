@@ -8,6 +8,7 @@
 #
 #
 #
+
 exec > >(tee -a /usr/local/osmosix/logs/service.log) 2>&1
 
 OSSVC_HOME=/usr/local/osmosix/service
