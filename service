@@ -26,19 +26,19 @@ USER_ENV="/usr/local/osmosix/etc/userenv"
 case $cmd in
 	install)
 		log "[INSTALL] Installing $SVCNAME"
-		# First lets install the openstack packages on this VM
+		# First lets install the openstack packages on this VM using yum
 		sudo yum install centos-release-openstack-ocata -y
 		;;
 	deploy)
 		log "[DEPLOY] Deploying $SVCNAME"
 		;;
 	configure)
-	    # Now lets configure the right stuff to make OpenStack deploy
+	    # Now lets configure the right stuff to make OpenStack deploy using packstack
 		log "[CONFIGURE] Configuring $SVCNAME"
 		sudo yum install openstack-packstack -y
-		# Generate Answer File using Packstack
+		# Lets generate Answer File using Packstack and then we need to customize it below
 		sudo packstack --gen-answer-file=answers.txt
-		# Edit Answers file to turn on the correct OpenStack components, and set passwords
+		# Edit Answers file to turn on the correct OpenStack components, and set passwords, ect ...
 		sed -i 's/CONFIG_DEFAULT_PASSWORD=/CONFIG_DEFAULT_PASSWORD=password/g' answers.txt
 		sed -i 's/CONFIG_SWIFT_INSTALL=/CONFIG_SWIFT_INSTALL=n/g' answers.txt
 		sed -i 's/CONFIG_NTP_SERVERS=/CONFIG_NTP_SERVERS=pool.ntp.org/g' answers.txt
