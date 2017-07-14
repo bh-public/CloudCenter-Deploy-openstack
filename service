@@ -10,7 +10,7 @@ OSSVC_HOME=/usr/local/osmosix/service
 . $OSSVC_HOME/utils/os_info_util.sh
 
 cmd=$1
-SVCNAME="openstack"
+SVCNAME="OpenStack IaaS"
 SVCHOME="$OSSVC_HOME/$SVCNAME"
 USER_ENV="/usr/local/osmosix/etc/userenv"
 
@@ -26,11 +26,22 @@ case $cmd in
 	configure)
 		log "[CONFIGURE] Configuring $SVCNAME"
 		sudo yum install openstack-packstack -y
+		# Generate Answer File using Packstack
+		sudo packstack --gen-answer-file=answers.txt
+		# Edit Answers file to turn on the correct OpenStack components, and set passwords
+		sed -i 's/CONFIG_DEFAULT_PASSWORD=/CONFIG_DEFAULT_PASSWORD=password/g' answers.txt
+		sed -i 's/CONFIG_SWIFT_INSTALL=/CONFIG_SWIFT_INSTALL=n/g' answers.txt
+		sed -i 's/CONFIG_NTP_SERVERS=/CONFIG_NTP_SERVERS=pool.ntp.org/g' answers.txt
+		sed -i 's/CONFIG_KEYSTONE_ADMIN_PW=/CONFIG_KEYSTONE_ADMIN_PW=password/g' answers.txt
+		sed -i 's/CONFIG_CINDER_VOLUMES_CREATE=/CONFIG_CINDER_VOLUMES_CREATE=y/g' answers.txt
+		sed -i 's/CONFIG_HORIZON_SSL=/CONFIG_HORIZON_SSL=y/g' answers.txt
+		sed -i 's/CONFIG_HEAT_CFN_INSTALL=/CONFIG_HEAT_CFN_INSTALL=y/g' answers.txt
+		sed -i 's/CONFIG_PROVISION_DEMO=/CONFIG_PROVISION_DEMO=n/g' answers.txt
+		sed -i 's/CONFIG_NEUTRON_OVS_TUNNEL_IF=/CONFIG_NEUTRON_OVS_TUNNEL_IF=eth1/g' answers.txt
+		# Done Editing Answer file
 		;;
 	start)
-		
 		log "[START] Invoking pre-start user packstack script wait 15 minutes"
-		sudo packstack --gen-answer-file=answers.txt
 		sudo packstack --answer-file=answers.txt
 		log "[START] Starting $SVCNAME"
 		log "[START] $SVCNAME successfully started."
