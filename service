@@ -1,5 +1,13 @@
 #!/bin/bash
-
+#
+#-----------------------------------------------------------------------------------------#
+# Cisco Cloud Center Application Profile Script to build OpenStack test bed in single VM  #
+# We use REL Packstack to install and configure the OpenStack bits                        #
+# written by: Bill Harper																  # 
+#-----------------------------------------------------------------------------------------#
+#
+#
+#
 exec > >(tee -a /usr/local/osmosix/logs/service.log) 2>&1
 
 OSSVC_HOME=/usr/local/osmosix/service
@@ -14,16 +22,18 @@ SVCNAME="OpenStack IaaS"
 SVCHOME="$OSSVC_HOME/$SVCNAME"
 USER_ENV="/usr/local/osmosix/etc/userenv"
 
-
+# We have done the case for "service install", "service configure", and "service start" 
 case $cmd in
 	install)
 		log "[INSTALL] Installing $SVCNAME"
+		# First lets install the openstack packages on this VM
 		sudo yum install centos-release-openstack-ocata -y
 		;;
 	deploy)
 		log "[DEPLOY] Deploying $SVCNAME"
 		;;
 	configure)
+	    # Now lets configure the right stuff to make OpenStack deploy
 		log "[CONFIGURE] Configuring $SVCNAME"
 		sudo yum install openstack-packstack -y
 		# Generate Answer File using Packstack
@@ -42,12 +52,14 @@ case $cmd in
 		;;
 	start)
 		log "[START] Invoking pre-start user packstack script wait 15 minutes"
+		# Next, lets start the OpenStack Installation using the modified answer file
 		sudo packstack --answer-file=answers.txt
 		log "[START] Starting $SVCNAME"
 		log "[START] $SVCNAME successfully started."
 		;;
 	stop)
-		log "[STOP] Invoking pre-stop user script"		
+		log "[STOP] Invoking pre-stop user script"
+		# Need some code here to remove the service completely	
 		log "[STOP] Stopping $SVCNAME"
 		log "[STOP] Invoking post-stop user script"
 		log "[STOP] $SVCNAME successfully stopped."
