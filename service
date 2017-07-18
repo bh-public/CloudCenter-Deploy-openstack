@@ -18,17 +18,20 @@ OSSVC_HOME=/usr/local/osmosix/service
 . $OSSVC_HOME/utils/install_util.sh
 . $OSSVC_HOME/utils/os_info_util.sh
 
+. $OSSVC_HOME/utils/utils.sh
+
 cmd=$1
 SVCNAME="OpenStack IaaS"
 SVCHOME="$OSSVC_HOME/$SVCNAME"
 USER_ENV="/usr/local/osmosix/etc/userenv"
 
-# We have done the case for "service install", "service configure", and "service start" 
+# We have done the case for "service install", "service configure", and "service start" (deploy is a dummy for now)
 case $cmd in
 	install)
 		log "[INSTALL] Installing $SVCNAME"
 		# First lets install the openstack packages on this VM using yum
 		sudo yum install centos-release-openstack-ocata -y
+		sudo sudo yum update -y
 		;;
 	deploy)
 		log "[DEPLOY] Deploying $SVCNAME"
@@ -37,7 +40,7 @@ case $cmd in
 	    # Now lets configure the right stuff to make OpenStack deploy using packstack
 		log "[CONFIGURE] Configuring $SVCNAME"
 		sudo yum install openstack-packstack -y
-		# Lets generate Answer File using Packstack and then we need to customize it below
+		# Lets generate the packstack Answer File using packstack and then we need to customize it below
 		sudo packstack --gen-answer-file=answers.txt
 		# Edit Answers file to turn on the correct OpenStack components, and set passwords, ect ...
 		sed -i 's/CONFIG_DEFAULT_PASSWORD=/CONFIG_DEFAULT_PASSWORD=password/g' answers.txt
@@ -49,6 +52,8 @@ case $cmd in
 		sed -i 's/CONFIG_HEAT_CFN_INSTALL=/CONFIG_HEAT_CFN_INSTALL=y/g' answers.txt
 		sed -i 's/CONFIG_PROVISION_DEMO=/CONFIG_PROVISION_DEMO=n/g' answers.txt
 		sed -i 's/CONFIG_NEUTRON_OVS_TUNNEL_IF=/CONFIG_NEUTRON_OVS_TUNNEL_IF=eth1/g' answers.txt
+		print_log " can I see this ?"
+		print_log $cliqrNodePublicIp
 		# Done Editing Answer file
 		;;
 	start)

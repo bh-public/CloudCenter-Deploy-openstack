@@ -41,4 +41,20 @@ Another useful command is openstack-status (you'll need to install the openstack
 openstack user list 
 which will show a list of users currently configured in your OpenStack cloud.
 
-After verifying that OpenStack has been configured successfully, you can also start a browser and connect to the Horizon configuration interface. This is a nice graphical interface that gives easy access to most of the tasks that OpenStack admins need to do on a frequent basis.
+After verifying that OpenStack has been configured successfully, you can also start a browser and connect to the Horizon configuration interface. 
+This is a nice graphical interface that gives easy access to most of the tasks that OpenStack admins need to do on a frequent 
+basis.
+
+BELOW had to be done also:
+
+This reminds me of https://bugzilla.redhat.com/show_bug.... : could you see if you have "ServerAlias" defined in /etc/httpd/conf.d/openstack-dashboard.conf or etc/httpd/conf.d/15-horizon_vhost.conf ? Removing them altogether, or adding ServerAlias and restarting httpd should help I think.
+link Comments
+1
+That did the trick, thank you so much! I added a ServerAlias line to /etc/httpd/conf.d/15-horizon_vhost.conf that was the public DNS name of my server. Working like a charm. :)
+noplacelike127 gravatar imagenoplacelike127 (Aug 6 '14)
+Glad this is resolved!
+jpichon gravatar imagejpichon (Aug 6 '14)
+Worked Great. Thanks
+Khayam gravatar imageKhayam (Jul 4 '15)
+add a comment
+
