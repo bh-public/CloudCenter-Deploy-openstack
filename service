@@ -28,6 +28,7 @@ USER_ENV="/usr/local/osmosix/etc/userenv"
 case $cmd in
 	install)
 		log "[INSTALL] Installing $SVCNAME"
+		agentSendLogMessage  "Running installer."
 		# First lets install the openstack packages on this VM using yum
 		sudo yum install centos-release-openstack-ocata -y
 		sudo sudo yum update -y
