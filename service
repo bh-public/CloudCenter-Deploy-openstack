@@ -52,8 +52,8 @@ case $cmd in
 		sed -i 's/CONFIG_HEAT_CFN_INSTALL=/CONFIG_HEAT_CFN_INSTALL=y/g' answers.txt
 		sed -i 's/CONFIG_PROVISION_DEMO=/CONFIG_PROVISION_DEMO=n/g' answers.txt
 		sed -i 's/CONFIG_NEUTRON_OVS_TUNNEL_IF=/CONFIG_NEUTRON_OVS_TUNNEL_IF=eth1/g' answers.txt
-		print_log " can I see this ?"
-		print_log $cliqrNodePublicIp
+		#print_log " can I see this ?"
+		#print_log $cliqrNodePublicIp
 		# Done Editing Answer file
 		;;
 	start)
