@@ -58,6 +58,8 @@ case $cmd in
 		#print_log " can I see this ?"
 		#print_log $cliqrNodePublicIp
 		# Done Editing Answer file
+		# Next we need ssh enabled for ROOT for this to work, this is needed to change the default
+		sudo sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config 
 		;;
 	start)
 		log "[START] Invoking pre-start user packstack script wait 15 minutes"
