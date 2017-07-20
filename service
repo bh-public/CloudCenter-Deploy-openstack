@@ -30,7 +30,7 @@ case $cmd in
 		log "[INSTALL] Installing $SVCNAME"
 		agentSendLogMessage  "Running Yum command to install OpenStack bits ..."
 		# First lets install the openstack packages on this VM using yum
-		sudo yum install centos-release-openstack-ocata -y
+		sudo yum install -y centos-release-openstack-ocata
 		sudo sudo yum update -y
 		;;
 	deploy)
@@ -40,9 +40,11 @@ case $cmd in
 	configure)
 	    # Now lets configure the right stuff to make OpenStack deploy using packstack
 		log "[CONFIGURE] Configuring $SVCNAME"
-		sudo yum install openstack-packstack -y
+		agentSendLogMessage  "Running Yum command to install packstack bits ..."
+		sudo yum install -y openstack-packstack
 		# Lets generate the packstack Answer File using packstack and then we need to customize it below
 		sudo packstack --gen-answer-file=answers.txt
+		agentSendLogMessage  "Running packstack to generate answers.txt file for editing ..."
 		# Edit Answers file to turn on the correct OpenStack components, and set passwords, ect ...
 		sed -i 's/CONFIG_DEFAULT_PASSWORD=/CONFIG_DEFAULT_PASSWORD=password/g' answers.txt
 		sed -i 's/CONFIG_SWIFT_INSTALL=/CONFIG_SWIFT_INSTALL=n/g' answers.txt
