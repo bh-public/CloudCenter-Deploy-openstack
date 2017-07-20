@@ -28,13 +28,14 @@ USER_ENV="/usr/local/osmosix/etc/userenv"
 case $cmd in
 	install)
 		log "[INSTALL] Installing $SVCNAME"
-		agentSendLogMessage  "Running installer."
+		agentSendLogMessage  "Running Yum command to install OpenStack bits ..."
 		# First lets install the openstack packages on this VM using yum
 		sudo yum install centos-release-openstack-ocata -y
 		sudo sudo yum update -y
 		;;
 	deploy)
 		log "[DEPLOY] Deploying $SVCNAME"
+		agentSendLogMessage "Running Deploy"
 		;;
 	configure)
 	    # Now lets configure the right stuff to make OpenStack deploy using packstack
