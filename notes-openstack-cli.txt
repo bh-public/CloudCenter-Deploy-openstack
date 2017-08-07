@@ -1,0 +1,63 @@
+https://raw.githubusercontent.com/bh-public/cc-ss02/master/service start
+
+https://raw.githubusercontent.com/bh-public/cc-openstack/master/service install
+
+
+floating ip create                         subnet list                         
+floating ip delete                         subnet pool create                  
+floating ip list                           subnet pool delete                  
+floating ip pool list                      subnet pool list                    
+floating ip show  
+
+(openstack) ip floating list
++--------------------------------------+----------------------+----------------+-----------+--------------------------------------+
+| ID                                   | Pool                 | IP             | Fixed IP  | Instance ID                          |
++--------------------------------------+----------------------+----------------+-----------+--------------------------------------+
+| 344ebe44-7bc9-4897-baad-6d5aa799df42 | PUBLIC DO NOT MODIFY | 184.94.251.67  | 10.2.2.37 | 2a4c4f14-44c9-4535-8dad-e245abf04035 |
+| 4111c948-58bd-44af-b2ae-fbdf7ecb8966 | PUBLIC DO NOT MODIFY | 184.94.251.75  | 10.2.2.29 | 7183d1e8-4a08-4e34-956b-26bfbe2242ff |
+| 85cbfe71-ac59-411e-9d5f-f252d365a887 | PUBLIC DO NOT MODIFY | 184.94.251.76  | 10.2.2.43 | 9c9d0022-87fb-40f5-b8ec-6391335a37b8 |
+| a9acc1c8-f7a6-4401-9d0c-7611ccdc2a29 | PUBLIC DO NOT MODIFY | 184.94.251.112 | None      | None                                 |
+| ca6ef4fc-8024-4f46-b4fa-42d006575208 | PUBLIC DO NOT MODIFY | 184.94.251.74  | 10.2.2.14 | aab2d9b0-3068-41ec-aa64-5ce3bc863b03 |
+| e8a1c870-3f47-4f36-be0c-37244ec741bc | PUBLIC DO NOT MODIFY | 184.94.251.115 | None      | None                                 |
+| ecf57e9c-3068-47da-baf0-96f295e1c330 | PUBLIC DO NOT MODIFY | 184.94.251.70  | 10.2.2.34 | 61adfbec-e710-47a8-a243-e4aa62979b6c |
+| ef73cf0d-ecf3-4e95-88af-bb87b457338b | PUBLIC DO NOT MODIFY | 184.94.251.116 | 10.2.2.42 | 7a1093a1-d238-4472-8ca9-e9dc713d7024 |
+| f3450129-3d4f-422d-a87e-6ed2a653e996 | PUBLIC DO NOT MODIFY | 184.94.251.73  | 10.2.2.22 | 4464152e-9b5f-4680-9348-952fe33a2a60 |
++--------------------------------------+----------------------+----------------+-----------+--------------------------------------+
+(openstack) ip floating list | grep None
+usage: ip floating list [-h] [-f {csv,html,json,json,table,value,yaml,yaml}]
+                        [-c COLUMN] [--max-width <integer>] [--noindent]
+                        [--quote {all,minimal,none,nonnumeric}]
+ip floating list: error: unrecognized arguments: | grep None
+(openstack) ip floating list | grep None
+usage: ip floating list [-h] [-f {csv,html,json,json,table,value,yaml,yaml}]
+                        [-c COLUMN] [--max-width <integer>] [--noindent]
+                        [--quote {all,minimal,none,nonnumeric}]
+ip floating list: error: unrecognized arguments: | grep None
+(openstack) ip floating list | grep NoneBIHARPER-M-G01Y:Demo_Scripts biharper$ openstack ip floating list | grep None
+| a9acc1c8-f7a6-4401-9d0c-7611ccdc2a29 | PUBLIC DO NOT MODIFY | 184.94.251.112 | None      | None                                 |
+| e8a1c870-3f47-4f36-be0c-37244ec741bc | PUBLIC DO NOT MODIFY | 184.94.251.115 | None      | None       
+
+
+(openstack) ip floating add 184.94.251.116 psdash
+(openstack) server list
++--------------------------------------+----------------+---------+------------------------------------------+
+| ID                                   | Name           | Status  | Networks                                 |
++--------------------------------------+----------------+---------+------------------------------------------+
+| 9c9d0022-87fb-40f5-b8ec-6391335a37b8 | HoneyNet       | ACTIVE  | trial6_default=10.2.2.43, 184.94.251.76  |
+| 7a1093a1-d238-4472-8ca9-e9dc713d7024 | psdash         | ACTIVE  | trial6_default=10.2.2.42, 184.94.251.116 |
+| 2a4c4f14-44c9-4535-8dad-e245abf04035 | Swift_Node_1   | SHUTOFF | trial6_default=10.2.2.37, 184.94.251.67  |
+| 61adfbec-e710-47a8-a243-e4aa62979b6c | rel-box-bill   | SHUTOFF | trial6_default=10.2.2.34, 184.94.251.70  |
+| aab2d9b0-3068-41ec-aa64-5ce3bc863b03 | Jumpbox Ubuntu | ACTIVE  | trial6_default=10.2.2.14, 184.94.251.74  |
+| 7183d1e8-4a08-4e34-956b-26bfbe2242ff | FreeNas-Filer  | SHUTOFF | trial6_default=10.2.2.29, 184.94.251.75  |
+| 4464152e-9b5f-4680-9348-952fe33a2a60 | Jenkins-Prod   | SHUTOFF | trial6_default=10.2.2.22, 184.94.251.73  |
++--------------------------------------+----------------+---------+------------------------------------------+   
+
+bash examples
+
+if echo "40922|OPR MO 12345|OPR MO 12345|12345|202|local|LMNO" | grep -q "MO"
+  then echo "FOUND"
+  else echo "NOT FOUND"
+fi
+
+
+
