@@ -70,7 +70,7 @@ case $cmd in
 		sudo packstack --answer-file=answers.txt
 		PRIVATE_IP=$(hostname -I)
 		PUBLIC_IP=$(curl ifconfig.co)
-		file=/etc/httpd/conf.d/15-horizon_vhost.conf
+		file="/etc/httpd/conf.d/15-horizon_vhost.conf"
 		agentSendLogMessage "Public IP is: " $PUBLIC_IP
 		#sudo sed -i 's/$PRIVATE_IP/$PUBLIC_IP/g' /etc/httpd/conf.d/15-horizon_vhost.conf
 		# Insert a line for the public IP address in the horizon vhost file
