@@ -1,4 +1,4 @@
-# cc-openstack
+# CloudCenter-Deploy-openstack-packstack
 This is a service to stand up openstack using packstack.
 We have 3 main portions of the install
   
